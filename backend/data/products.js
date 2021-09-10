@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: '01',
     name: 'Women denim set',
     image: '/images/01_WomenDenimKotn.jpeg',
     description: 'Women denim',
@@ -12,7 +11,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '02',
     name: 'Women joggers',
     image: '/images/02_W-JerseyTaperedJogger-Black-Jayde-Kotn.jpeg',
     description: 'Women jersey tappered jogger-black',
@@ -24,7 +22,6 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: '03',
     name: 'Women mockneck',
     image: '/images/03_W-MockNeckTank-Black-Kton.jpeg',
     description: 'Women mockneck tank',
@@ -36,7 +33,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '04',
     name: 'Bedding set',
     image: '/images/04_Bedding-Kton.jpeg',
     description: 'Incredibly soft bedding set',
@@ -48,7 +44,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '05',
     name: 'Men Polo Shirt',
     image: '/images/05_MenPoloShirtIndigo.jpeg',
     description: 'Polo shirt for all ocassion',
@@ -60,7 +55,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: '06',
     name: 'Men T-Shirt',
     image: '/images/06_MenTShirtIndigo.jpeg',
     description: 'Fresh and Classic T-Shirt',
@@ -73,4 +67,5 @@ const products = [
   },
 ];
 
+//module.exports = products;
 export default products;
