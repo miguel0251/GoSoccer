@@ -29,6 +29,11 @@ const productSchema = mongoose.Schema(
       required: true,
     },
 
+    video: {
+      type: String,
+      required: true,
+    },
+
     brand: {
       type: String,
       required: true,

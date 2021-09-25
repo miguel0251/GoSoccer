@@ -41,8 +41,10 @@ const ProductScreen = ({ history, match }) => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <Row>
-          <Col md={4}>
-            <Image src={product.image} alt={product.name} fluid></Image>
+          <Col md={5}>
+            <a href={product.video} alt='' target='_blank' rel='noreferrer'>
+              <Image src={product.image} alt={product.name} fluid></Image>
+            </a>
           </Col>
           <Col md={3}>
             <ListGroup variant='flush'>
@@ -55,7 +57,7 @@ const ProductScreen = ({ history, match }) => {
                   text={`${product.numReviews} reviews`}
                 ></Rating>
               </ListGroup.Item>
-              <ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+              {/* <ListGroup.Item>Price: ${product.price}</ListGroup.Item> */}
               <ListGroup.Item>
                 Description: {product.description}
               </ListGroup.Item>
@@ -66,7 +68,7 @@ const ProductScreen = ({ history, match }) => {
               <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <Row>
-                    <Col>Price:</Col>
+                    <Col>One-on-One Online Training Session</Col>
                     <Col>
                       <strong>${product.price}</strong>
                     </Col>
@@ -75,9 +77,11 @@ const ProductScreen = ({ history, match }) => {
 
                 <ListGroup.Item>
                   <Row>
-                    <Col>Status:</Col>
+                    <Col>Status</Col>
                     <Col>
-                      {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
+                      {product.countInStock > 0
+                        ? 'Online Training Session Available  (less than 4 athletes recommended)'
+                        : 'Online Session Training Full'}
                     </Col>
                   </Row>
                 </ListGroup.Item>

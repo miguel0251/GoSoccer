@@ -4,17 +4,20 @@ import User from '../models/userModel.js';
 
 const protect = asyncHandler(async (req, res, next) => {
   let token;
-  //Remember, there is one space in split (' ')
+
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
     try {
+      //I just want the token not the Bearer. Bearer is the 0 index and the token is the 1 index
+      //token includes the user id in decoded.id, the issued at, and expiration, minus the password
+      //Remember, there is one space in split (' ')
       token = req.headers.authorization.split(' ')[1];
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      //console.log(decoded);
+      console.log(decoded);
 
       req.user = await User.findById(decoded.id).select('-password');
 

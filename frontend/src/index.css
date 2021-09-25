@@ -19,3 +19,15 @@ h2 {
 .rating span {
   margin: 0.2rem;
 }
+
+.navbar a:hover {
+  background-color: #f6f7f7;
+  color: black;
+}
+/* .navbar .navbar-nav .nav-link:hover {
+  color: #f0f2f4;
+} */
+/* 
+.container .navbar .navbar-nav .navbar.brand:hover {
+  color: #f0f2f4;
+} */

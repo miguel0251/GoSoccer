@@ -20,7 +20,7 @@ const PlaceOrderScreen = ({ history }) => {
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
 
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 8.45);
+  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 0.0);
 
   cart.taxPrice = addDecimals(Number((0.07 * cart.itemsPrice).toFixed(2)));
 
@@ -62,10 +62,10 @@ const PlaceOrderScreen = ({ history }) => {
             <ListGroup.Item variant='flush'>
               <h2>Shipping</h2>
               <p>
-                <strong>Address: </strong>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city},{' '}
+                <strong>Not applicable to on-line training </strong>
+                {/* {cart.shippingAddress.address}, {cart.shippingAddress.city},{' '}
                 {cart.shippingAddress.postalCode},{' '}
-                {cart.shippingAddress.country}
+                {cart.shippingAddress.country} */}
               </p>
             </ListGroup.Item>
 
