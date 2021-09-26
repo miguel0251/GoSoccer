@@ -104,7 +104,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-
+    //Beware of space between Bearer and ${variable}
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
 

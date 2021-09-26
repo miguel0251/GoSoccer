@@ -17,11 +17,11 @@ export const createOrder = (order) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-
+    //Beware of space between Bearer and ${variable}
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
@@ -54,9 +54,9 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        //'Content-Type': 'application/json',
-        //Need to have space in between Authorization and Bearer because how we defined/typed it in authMiddleware token
-        Authorization: `Bearer${userInfo.token}`,
+        // 'Content-Type': 'application/json',
+        //Need to have space in between Bearer and ${variable} because is how we defined/typed it in authMiddleware token
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
 

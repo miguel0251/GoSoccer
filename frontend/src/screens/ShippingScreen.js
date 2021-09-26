@@ -9,61 +9,65 @@ const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
-  const [technical, setTechnical] = useState(shippingAddress.technical);
-  const [tactical, setTactical] = useState(shippingAddress.tactical);
-  const [fitness, setFitness] = useState(shippingAddress.fitness);
-  const [mental, setMental] = useState(shippingAddress.mental);
+  const [address, setAddress] = useState(shippingAddress.address);
+  const [city, setCity] = useState(shippingAddress.city);
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
+  const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShippingAddress({ technical, tactical, fitness, mental }));
+    dispatch(saveShippingAddress({ address, city, postalCode, country }));
     history.push('/payment');
   };
 
   return (
     <FormContainer>
-      <CheckoutSteps step1 step2></CheckoutSteps>
-      <h1>Additional training?</h1>
+      <CheckoutSteps step1 step2 />
+      <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId='technical' className='py-3'>
-          <Form.Label>Technical</Form.Label>
+        <Form.Group controlId='address'>
+          <Form.Label>Address</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Suggestions welcomed (optional)'
-            value={technical}
-            onChange={(e) => setTechnical(e.target.value)}
+            placeholder='Enter address'
+            value={address}
+            required
+            onChange={(e) => setAddress(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId='tactical' className='py-3'>
-          <Form.Label>Tactical</Form.Label>
+        <Form.Group controlId='city'>
+          <Form.Label>City</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Suggestions welcomed (optional)'
-            value={tactical}
-            onChange={(e) => setTactical(e.target.value)}
+            placeholder='Enter city'
+            value={city}
+            required
+            onChange={(e) => setCity(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId='fitness' className='py-3'>
-          <Form.Label>Fitness</Form.Label>
+        <Form.Group controlId='postalCode'>
+          <Form.Label>Postal Code</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Suggestions welcomed (optional)'
-            value={fitness}
-            onChange={(e) => setFitness(e.target.value)}
+            placeholder='Enter postal code'
+            value={postalCode}
+            required
+            onChange={(e) => setPostalCode(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId='mental' className='py-3'>
-          <Form.Label>Mental</Form.Label>
+        <Form.Group controlId='country'>
+          <Form.Label>Country</Form.Label>
           <Form.Control
             type='text'
-            placeholder='Suggestions welcomed (optional)'
-            value={mental}
-            onChange={(e) => setMental(e.target.value)}
+            placeholder='Enter country'
+            value={country}
+            required
+            onChange={(e) => setCountry(e.target.value)}
           ></Form.Control>
         </Form.Group>
 

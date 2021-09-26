@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/CheckoutSteps';
 import Loader from '../components/Loader';
@@ -29,9 +29,9 @@ const OrderScreen = ({ match }) => {
         <Col md={8}>
           <ListGroup>
             <ListGroup.Item variant='flush'>
-              <h2>Suggestions</h2>
+              <h2>Shipping</h2>
               <p>
-                <strong>Additional trainig?: </strong>
+                <strong>Not applicable to on-line training </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city},{' '}
                 {order.shippingAddress.postalCode},{' '}
                 {order.shippingAddress.country}
@@ -39,7 +39,7 @@ const OrderScreen = ({ match }) => {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <h2>Paymen Method</h2>
               <strong>Method: </strong>
               {order.paymentMethod}
             </ListGroup.Item>
@@ -89,12 +89,12 @@ const OrderScreen = ({ match }) => {
                   <Col>${order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {/* <ListGroup.Item>
+              <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>
                   <Col>${order.shippingPrice}</Col>
                 </Row>
-              </ListGroup.Item> */}
+              </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
