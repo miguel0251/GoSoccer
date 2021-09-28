@@ -15,7 +15,7 @@ const PlaceOrderScreen = ({ history }) => {
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
-  //Zero is the start of the acc= accumulator
+  //Zero is the start of the acc (accumulator)
   cart.itemsPrice = addDecimals(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
@@ -63,6 +63,7 @@ const PlaceOrderScreen = ({ history }) => {
               <h2>Shipping</h2>
               <p>
                 <strong>Not applicable to on-line training </strong>
+                <p></p>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
                 {cart.shippingAddress.postalCode},{' '}
                 {cart.shippingAddress.country}
