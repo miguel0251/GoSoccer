@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PayPalButton } from 'react-paypal-button-v2';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/CheckoutSteps';
 import Loader from '../components/Loader';
@@ -35,35 +35,44 @@ const OrderScreen = ({ match, history }) => {
       order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
     );
   }
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     }
+
     const addPayPalScript = async () => {
+      console.log('addPayPalScript'); //encontrado en clg
+      //try {
       const { data: clientId } = await axios.get('/api/config/paypal');
-      //console.log(clientId);
       const script = document.createElement('script');
       script.type = 'text/javascript';
       script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      //script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
       };
       document.body.appendChild(script);
+      //} catch (error) {
+      console.log({ error });
+      //}
     };
 
     if (!order || successPay || order._id !== orderId) {
+      console.log('!order || successPay');
       dispatch({ type: ORDER_PAY_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
+      console.log('!order.isPaid'); //encontrado en clg
       if (!window.paypal) {
+        console.log('!window.paypal'); //encontrado en clg
         addPayPalScript();
       } else {
+        console.log('set SDK');
         setSdkReady(true);
       }
     }
-  }, [dispatch, order, orderId, successPay, history, userInfo]);
+  }, [dispatch, order, orderId, successPay, history, userInfo, error]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
