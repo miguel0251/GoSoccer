@@ -19,6 +19,8 @@ app.use(express.json());
 app.use(cors());
 app.options('*', cors());
 
+app.set('clientId', process.env.PAYPAL_CLIENT_ID);
+
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
@@ -27,9 +29,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 
-app.get('/api/config/paypal', (req, res) =>
-  res.send(process.env.PAYPAL_CLIENT_ID)
-);
+app.get('/api/config/paypal', (req, res) => res.send(app.get('clientId')));
 
 app.use(notFound);
 app.use(errorHandler);
