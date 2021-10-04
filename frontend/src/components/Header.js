@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-
+import SearchBox from './SearchBox';
 import { logout } from '../actions/userActions';
 
 const Header = () => {
@@ -25,6 +25,9 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
+            <Route
+              render={({ history }) => <SearchBox history={history} />}
+            ></Route>
             <Nav className='ms-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link>
@@ -33,8 +36,8 @@ const Header = () => {
               </LinkContainer>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
-                  <LinkContainer to='profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile/ Orders</NavDropdown.Item>
                   </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
@@ -49,7 +52,7 @@ const Header = () => {
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin Menu' id='adminmenu'>
-                  <LinkContainer to='admin/userlist'>
+                  <LinkContainer to='/admin/userlist'>
                     <NavDropdown.Item>Users</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/productlist'>
