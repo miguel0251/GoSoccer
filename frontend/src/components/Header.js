@@ -18,7 +18,12 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar className='w-100' bg='secondary' expand='lg' collapseOnSelect>
+      <Navbar
+        className='w-100 mb-4'
+        bg='secondary'
+        expand='lg'
+        collapseOnSelect
+      >
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>Goalkeeper Coach App</Navbar.Brand>
@@ -31,7 +36,7 @@ const Header = () => {
             <Nav className='ms-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link>
-                  <i className='fas fa-shopping-cart'></i> Cart
+                  <i className='fas fa-shopping-cart m-auto'></i> Cart
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
@@ -46,7 +51,7 @@ const Header = () => {
               ) : (
                 <LinkContainer to='/login'>
                   <Nav.Link>
-                    <i className='fas fa-user'></i> Sign In
+                    <i className='fas fa-user m-auto'></i> User
                   </Nav.Link>
                 </LinkContainer>
               )}

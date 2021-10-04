@@ -31,3 +31,35 @@ h2 {
 .container .navbar .navbar-nav .navbar.brand:hover {
   color: #f0f2f4;
 } */
+
+/* carousel */
+.carousel-item-next,
+.carousel-item-prev,
+.carousel-item.active {
+  display: flex;
+}
+.carousel-caption {
+  position: absolute;
+  top: 0;
+}
+
+.carousel-caption h2 {
+  color: #f6f7f7;
+}
+
+.carousel img {
+  height: 300px;
+  padding: 30px;
+  margin: 40px;
+  border-radius: 25%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.carousel a {
+  margin: 0 auto;
+}
+@media (max-width: 200px) {
+  .carousel-caption h2 {
+    font-size: 2.5vw;
+  }
+}
