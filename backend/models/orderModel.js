@@ -22,6 +22,12 @@ const orderSchema = mongoose.Schema(
       },
     ],
 
+    itemsPrice: {
+      type: Number,
+      required: true,
+      default: 0.0,
+    },
+
     shippingAddress: {
       address: { type: String, required: false },
       city: { type: String, required: false },

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -20,10 +20,18 @@ import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 
 const App = () => {
+  let user = localStorage.getItem('userInfo');
   return (
     <Router>
       <Header></Header>
       <main className='py=3'>
+        {!user ? (
+          <Redirect
+            to={{
+              pathname: '/',
+            }}
+          />
+        ) : null}
         <Container>
           <Route path='/order/:id' component={OrderScreen}></Route>
           <Route path='/shipping' component={ShippingScreen}></Route>

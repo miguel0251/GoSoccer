@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { PayPalButton } from 'react-paypal-button-v2';
 import axios from 'axios';
+import { PayPalButton } from 'react-paypal-button-v2';
 import { Link } from 'react-router-dom';
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import Message from '../components/CheckoutSteps';
+import Message from '../components/Message';
 import Loader from '../components/Loader';
 import {
   getOrderDetails,
@@ -52,8 +52,6 @@ const OrderScreen = ({ match, history }) => {
     }
 
     const addPayPalScript = async () => {
-      console.log('addPayPalScript'); //encontrado en clg
-      //try {
       const { data: clientId } = await axios.get('/api/config/paypal');
       const script = document.createElement('script');
       script.type = 'text/javascript';
@@ -63,36 +61,20 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true);
       };
       document.body.appendChild(script);
-      //} catch (error) {
-      console.log({ error });
-      //}
     };
 
     if (!order || successPay || successDeliver || order._id !== orderId) {
-      //console.log('!order || successPay');
       dispatch({ type: ORDER_PAY_RESET });
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
-      //console.log('!order.isPaid'); //encontrado en clg
       if (!window.paypal) {
-        //console.log('!window.paypal'); //encontrado en clg
         addPayPalScript();
       } else {
-        console.log('set SDK');
         setSdkReady(true);
       }
     }
-  }, [
-    dispatch,
-    order,
-    orderId,
-    successPay,
-    successDeliver,
-    history,
-    userInfo,
-    error,
-  ]);
+  }, [dispatch, orderId, successPay, successDeliver, order, userInfo, history]);
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
@@ -104,62 +86,60 @@ const OrderScreen = ({ match, history }) => {
   };
 
   return loading ? (
-    <Loader></Loader>
+    <Loader />
   ) : error ? (
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
-      <h1>Order {order._id} </h1>
+      <h1>Order {order._id}</h1>
       <Row>
         <Col md={8}>
-          <ListGroup>
-            <ListGroup.Item variant='flush'>
+          <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h2>Shipping Orders/ Services Rendered</h2>
               <p>
                 <strong>Name: </strong> {order.user.name}
               </p>
               <p>
                 <strong>Email: </strong>{' '}
-                <a href={`mailto:${order.user.email}`} alt=''>
-                  {order.user.email}
-                </a>
+                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
               </p>
-            </ListGroup.Item>
-            {/* <ListGroup.Item variant='flush'>
-              <h2>Shipping</h2>
               <p>
-                <strong>Not applicable to on-line training </strong>
-                {order.shippingAddress.address}, {order.shippingAddress.city},{' '}
+                <strong>Address:</strong>
+                {order.shippingAddress.address}, {order.shippingAddress.city}{' '}
                 {order.shippingAddress.postalCode},{' '}
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
                 <Message variant='success'>
-                  Delivered on {order.deliveredAt}
+                  Delivered on {order.deliveredAt.substring(0, 10)}
                 </Message>
               ) : (
-                <Message variant='danger'>Not Delivered</Message>
+                <Message variant='danger'>
+                  Order Not Delivered/ Training Not Rendered
+                </Message>
               )}
-            </ListGroup.Item> */}
+            </ListGroup.Item>
 
             <ListGroup.Item>
+              <h2>Payment Method</h2>
               <p>
-                <h2>Payment Method</h2>
                 <strong>Method: </strong>
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <p style={{ color: 'green' }}>
-                  Paid on {new Date(`${order.paidAt}`).toDateString()}
-                </p>
+                <Message variant='success'>
+                  Paid on {order.paidAt.substring(0, 10)}
+                </Message>
               ) : (
-                <p style={{ color: 'red' }}>Not Paid</p>
+                <Message variant='danger'>Not Paid</Message>
               )}
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Order Items</h2>
               {order.orderItems.length === 0 ? (
-                <Message> Your order is empty</Message>
+                <Message>Order is empty</Message>
               ) : (
                 <ListGroup variant='flush'>
                   {order.orderItems.map((item, index) => (
@@ -171,7 +151,7 @@ const OrderScreen = ({ match, history }) => {
                             alt={item.name}
                             fluid
                             rounded
-                          ></Image>
+                          />
                         </Col>
                         <Col>
                           <Link to={`/product/${item.product}`}>
@@ -179,7 +159,7 @@ const OrderScreen = ({ match, history }) => {
                           </Link>
                         </Col>
                         <Col md={4}>
-                          {item.qty} x ${item.price} = {item.qty * item.price}
+                          {item.qty} x ${item.price} = ${item.qty * item.price}
                         </Col>
                       </Row>
                     </ListGroup.Item>
@@ -221,18 +201,17 @@ const OrderScreen = ({ match, history }) => {
               </ListGroup.Item>
               {!order.isPaid && (
                 <ListGroup.Item>
-                  {loadingPay && <Loader></Loader>}
+                  {loadingPay && <Loader />}
                   {!sdkReady ? (
-                    <Loader></Loader>
+                    <Loader />
                   ) : (
                     <PayPalButton
                       amount={order.totalPrice}
                       onSuccess={successPaymentHandler}
-                    ></PayPalButton>
+                    />
                   )}
                 </ListGroup.Item>
               )}
-
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&
